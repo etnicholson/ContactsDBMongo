@@ -45,7 +45,7 @@ namespace ContactsDBAPI.Repositories
             user.Email = email;
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
-            //check if user exist???
+
 
             await _users.InsertOneAsync(user);
 

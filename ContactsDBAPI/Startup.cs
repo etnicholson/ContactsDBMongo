@@ -30,7 +30,7 @@ namespace ContactsDBAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            var secret = Configuration.GetSection("Secret").Value;
             services.AddScoped<IAuthRepository, AuthRepository>();
 
             services.AddSwaggerGen(c =>
@@ -61,7 +61,7 @@ namespace ContactsDBAPI
                 {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-                    .GetBytes("NE193SXuWSXae7OZLSLLFlHzk9HlcwOnFMMNOYqaIXQKz24VOpmjHzV20WPuOqR")),
+                    .GetBytes(secret)),
                 ValidateIssuer = false,
                 ValidateAudience = false
                 };

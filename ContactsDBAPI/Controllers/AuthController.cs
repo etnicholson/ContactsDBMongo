@@ -61,15 +61,16 @@ namespace ContactsDBAPI.Controllers
                 new Claim(ClaimTypes.Email, userFromRepo.Email)
             };
 
+            var secret = _config.GetSection("Secret").Value;
             var key = new SymmetricSecurityKey(Encoding.UTF8
-                .GetBytes("NE193SXuWSXae7OZLSLLFlHzk9HlcwOnFMMNOYqaIXQKz24VOpmjHzV20WPuOqR"));
+                .GetBytes(secret));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(10),
+                Expires = DateTime.Now.AddDays(5),
                 SigningCredentials = creds
             };
 
@@ -85,6 +86,8 @@ namespace ContactsDBAPI.Controllers
                 userForLoginDto.Email
             });
         }
+
+
 
     }
 }
