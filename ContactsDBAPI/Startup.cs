@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace ContactsDBAPI
 {
@@ -31,6 +32,16 @@ namespace ContactsDBAPI
         {
 
             services.AddScoped<IAuthRepository, AuthRepository>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "Contacts API",
+                    Version = "v1",
+                    Description = "Contacts API using MongoDB",
+                });
+            });
 
             services.AddCors(options =>
             {
@@ -75,6 +86,11 @@ namespace ContactsDBAPI
 
 
             app.UseCors("CorsPolicy");
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Supplement V1");
+            });
             //app.UseHttpsRedirection();
             app.UseMvc();
 
