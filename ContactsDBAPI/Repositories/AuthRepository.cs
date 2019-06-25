@@ -15,11 +15,11 @@ namespace ContactsDBAPI.Repositories
         public AuthRepository(IConfiguration config)
         {
             // Connects to MongoDB.
-            var client = new MongoClient("mongodb://localhost:27017");
+            var client = new MongoClient(config.GetConnectionString("ContactsDB"));
             // Gets the supplementDB.
             var database = client.GetDatabase("contacts");
             //Fetches the supplement collection.
-            _users = database.GetCollection<User>("user");
+            _users = database.GetCollection<User>("User");
         }
 
         public async Task<User> Login(string email, string password)
