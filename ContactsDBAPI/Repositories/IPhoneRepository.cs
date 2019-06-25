@@ -12,7 +12,7 @@ namespace ContactsDBAPI.Repositories
 
         Task<Phone> FindPhone(string phone);
 
-        Task<List<Phone>> FindAllUserNumber(string phone);
+        Task<List<Phone>> FindAllUserNumber(string id);
 
         Task DeletePhone(string phone);
 
