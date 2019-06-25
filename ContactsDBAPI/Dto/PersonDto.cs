@@ -8,6 +8,14 @@ namespace ContactsDBAPI.Dto
 {
     public class PersonDto
     {
+        public PersonDto(Person person, List<Phone> phones, List<Email> emails)
+        {
+            Name = person.Name;
+            City = person.City;
+            Notes = person.Notes;
+            Phones = phones;
+            Emails = emails;
+        }
 
         public string Name { get; set; }
 
