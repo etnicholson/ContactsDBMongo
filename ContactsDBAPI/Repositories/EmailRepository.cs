@@ -54,6 +54,12 @@ namespace ContactsDBAPI.Repositories
             return false;
         }
 
+        public async Task<List<Email>> FindAllUserEmails(string email)
+        {
+            Email firstEmail = await FindEmail(email);
+            var numbers = await _emails.Find(u => u.PersonID == firstEmail.PersonID).ToListAsync();
 
+            return numbers;
+        }
     }
 }
