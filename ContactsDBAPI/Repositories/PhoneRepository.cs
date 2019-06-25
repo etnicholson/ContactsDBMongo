@@ -40,6 +40,14 @@ namespace ContactsDBAPI.Repositories
 
         }
 
+        public async Task<List<Phone>> FindAllUserNumber(string phone)
+        {
+            Phone firstNumber = await FindPhone(phone);
+            var numbers = await _phones.Find(u => u.PersonID == firstNumber.PersonID).ToListAsync();
+
+            return numbers;
+        }
+
         public async Task<Phone> FindPhone(string phone)
         {
             phone = PhoneConvert(phone);
