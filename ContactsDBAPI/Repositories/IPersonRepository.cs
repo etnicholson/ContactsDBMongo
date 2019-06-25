@@ -10,6 +10,8 @@ namespace ContactsDBAPI.Repositories
     {
         Task<Person> CreatePerson(string name, string city, string notes);
 
+        Task<Person> FindPerson(string id);
+
         Task DeletePerson(string id);
 
     }

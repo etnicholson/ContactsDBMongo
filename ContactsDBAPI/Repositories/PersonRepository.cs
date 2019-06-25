@@ -33,5 +33,12 @@ namespace ContactsDBAPI.Repositories
         {
             await _persons.DeleteOneAsync(p => p.Id == id);
         }
+
+        public async Task<Person> FindPerson(string id)
+        {
+            var person = await _persons.Find(p => p.Id == id).FirstOrDefaultAsync();
+
+            return person;
+        }
     }
 }
