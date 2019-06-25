@@ -12,6 +12,8 @@ namespace ContactsDBAPI.Repositories
 
         Task<Phone> FindPhone(string phone);
 
+        Task<List<Phone>> FindAllUserNumber(string phone);
+
         Task DeletePhone(string phone);
 
         Task<bool> PhoneExist(string phone);
