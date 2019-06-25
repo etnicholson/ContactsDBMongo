@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ContactsDBAPI.Dto;
+using ContactsDBAPI.Models;
 using ContactsDBAPI.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,6 @@ namespace ContactsDBAPI.Controllers
             _person = person;
         }
 
-
         [HttpPost("findbyphone")]
         public async Task<IActionResult> FindByPhone([FromBody] string phone)
         {
@@ -36,16 +36,101 @@ namespace ContactsDBAPI.Controllers
                 return BadRequest("Phone not found");
             }
 
+            Phone firstNumber = await _phone.FindPhone(phone);
+            var personID = firstNumber.PersonID;
 
-            var person = new PersonDto();
+            var user = await _person.FindPerson(personID);
+            var phoneList = await _phone.FindAllUserNumber(personID);
+            var EmailList = await _email.FindAllUserEmails(personID);
 
-
-
+            var person = new PersonDto(user, phoneList, EmailList);
 
 
             return Ok(person);
 
         }
+
+
+
+
+
+        [HttpPost("findbyemail")]
+        public async Task<IActionResult> FindByEmail([FromBody] string email)
+        {
+
+            var exist = await _email.EmailExist(email);
+
+            if (!exist)
+            {
+                return BadRequest("Email not found");
+            }
+
+            Email firstEmail = await _email.FindEmail(email);
+            var personID = firstEmail.PersonID;
+
+            var user = await _person.FindPerson(personID);
+            var phoneList = await _phone.FindAllUserNumber(personID);
+            var EmailList = await _email.FindAllUserEmails(personID);
+
+            var person = new PersonDto(user, phoneList, EmailList);
+
+            return Ok(person);
+
+        }
+
+
+        [HttpPost("createperson")]
+        public async Task<IActionResult> CreatePerson([FromBody] PersonRegisterDto p)
+        {
+
+            foreach (var item in p.Emails)
+            {
+                var exist = await _email.EmailExist(item);
+
+                if (exist)
+                {
+                    return BadRequest("Person's email already on the database");
+                }
+            }
+
+            foreach (var item in p.Phones)
+            {
+                var exist = await _phone.PhoneExist(item);
+
+                if (exist)
+                {
+                    return BadRequest("Person's number already on the database");
+                }
+            }
+
+
+
+
+            var person = await _person.CreatePerson(p.Name, p.City, p.Notes);
+
+            foreach (var item in p.Emails)
+            {
+                await _email.CreateEmail(person.Id, item);
+            }
+
+            foreach (var item in p.Phones)
+            {
+                await _phone.CreatePhone(person.Id, item);
+            }
+            
+
+
+
+            return Ok();
+
+        }
+
+
+
+
+
+
+
 
 
     }
