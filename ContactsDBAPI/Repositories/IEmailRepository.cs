@@ -12,7 +12,7 @@ namespace ContactsDBAPI.Repositories
 
         Task<Email> FindEmail(string email);
 
-        Task<Email> DeleteEmail(string email);
+        Task DeleteEmail(string email);
 
         Task<bool> EmailExist(string email);
     }

@@ -3,30 +3,57 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ContactsDBAPI.Models;
+using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 
 namespace ContactsDBAPI.Repositories
 {
     public class EmailRepository : IEmailRepository
     {
+        private readonly IMongoCollection<Email> _emails;
 
-        public Task<Email> CreateEmail(string personID, string email)
+        public EmailRepository(IConfiguration config)
         {
-            throw new NotImplementedException();
+            // Connects to MongoDB.
+            var client = new MongoClient(config.GetConnectionString("ContactsDB"));
+            // Gets the supplementDB.
+            var database = client.GetDatabase("contacts");
+            //Fetches the supplement collection.
+            _emails = database.GetCollection<Email>("Emails");
         }
 
-        public Task<Email> DeleteEmail(string email)
+        public async Task<Email> CreateEmail(string personID, string email)
         {
-            throw new NotImplementedException();
+            var newEmail = new Email(personID, email, DateTime.Today);
+            await _emails.InsertOneAsync(newEmail);
+
+            return newEmail;
         }
 
-        public Task<bool> EmailExist(string email)
+        public async Task DeleteEmail(string email)
         {
-            throw new NotImplementedException();
+
+            await _emails.DeleteOneAsync(p => p.UserEmail == email);
+
         }
 
-        public Task<Email> FindEmail(string email)
+        public async Task<Email> FindEmail(string email)
         {
-            throw new NotImplementedException();
+            var emailToFind = await _emails.Find(x => x.UserEmail == email).FirstOrDefaultAsync();
+
+            return emailToFind;
         }
+
+        public async Task<bool> EmailExist(string email)
+        {
+            var emailToFind = await _emails.Find(x => x.UserEmail == email).FirstOrDefaultAsync();
+
+            if (emailToFind != null)
+                return true;
+
+            return false;
+        }
+
+
     }
 }

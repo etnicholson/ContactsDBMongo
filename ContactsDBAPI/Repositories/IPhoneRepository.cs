@@ -1,11 +1,19 @@
-﻿using System;
+﻿using ContactsDBAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ContactsDBAPI.Repositories
 {
-    public class IPhoneRepository
+    public interface IPhoneRepository
     {
+        Task<Phone> CreatePhone(string personID, string phone);
+
+        Task<Phone> FindPhone(string phone);
+
+        Task DeletePhone(string phone);
+
+        Task<bool> PhoneExist(string phone);
     }
 }
