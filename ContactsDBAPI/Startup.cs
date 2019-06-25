@@ -32,6 +32,9 @@ namespace ContactsDBAPI
         {
             var secret = Configuration.GetSection("Secret").Value;
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IPhoneRepository, PhoneRepository>();
+            services.AddScoped<IEmailRepository, EmailRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
 
             services.AddSwaggerGen(c =>
             {
