@@ -12,7 +12,7 @@ namespace ContactsDBAPIIntegration.Fixture
     {
 
         public HttpClient Client { get; private set; }
-        private TestServer _server { get; set; }
+        public TestServer Server { get; set; }
 
         public TestContext()
         {
@@ -21,14 +21,22 @@ namespace ContactsDBAPIIntegration.Fixture
 
         private void SetupClient()
         {
-            _server = new TestServer(new WebHostBuilder().UseStartup<Startup>());
+            Server = new TestServer(new WebHostBuilder()
+                .UseStartup<Startup>());
 
-            Client = _server.CreateClient();
+            Client = Server.CreateClient();
         }
+
+        public TService GetService<TService>()
+           where TService : class
+        {
+            return Server?.Host?.Services?.GetService(typeof(TService)) as TService;
+        }
+
 
         public void Dispose()
         {
-            _server?.Dispose();
+            Server?.Dispose();
             Client?.Dispose();
         }
     }
