@@ -22,7 +22,7 @@ namespace ContactsDBAPI.Models
         [BsonElement("PersonID")]
         public string PersonID { get; set; }
 
-        [BsonElement("Phone")]
+        [BsonElement("Number")]
         public string Number { get; set; }
 
         [BsonElement("Date")]

@@ -35,8 +35,8 @@ namespace ContactsDBAPI.Repositories
 
         public async Task DeletePhone(string phone)
         {
-            phone = PhoneConvert(phone);
-            await _phones.DeleteOneAsync(p => p.Number == phone);
+
+            await _phones.DeleteOneAsync<Phone>(p=> p.Number == phone);
 
         }
 

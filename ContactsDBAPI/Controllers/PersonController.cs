@@ -13,7 +13,7 @@ namespace ContactsDBAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class PersonController : ControllerBase
     {
         private readonly IPhoneRepository _phone;
