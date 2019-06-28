@@ -1,0 +1,34 @@
+
+<form (ngSubmit)="login()" #a="ngForm">
+
+    <div class="main-container">
+
+            <mat-form-field>
+            <input matInput placeholder="Email"
+            class="form-control"
+            ngModel
+            email
+            required
+            #email="ngModel"
+            name="email">
+          </mat-form-field>
+          <span *ngIf="!email.valid && email.touched">Please enter a valid email.</span>
+
+          <mat-form-field>
+            <input matInput placeholder="Enter your password" 
+            class="form-control"
+            ngModel
+            name="password"
+            [type]="hide ? 'password' : 'text'">
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </mat-form-field>
+          <button type="submit" 
+          class="btn btn-secondary"
+          [disabled]="!a.valid"
+          >Login</button>
+
+        </div>
+        <span>{{error}}</span>
+
+        
+</form>
