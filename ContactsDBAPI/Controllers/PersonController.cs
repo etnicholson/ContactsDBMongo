@@ -59,7 +59,7 @@ namespace ContactsDBAPI.Controllers
         [HttpPost("findbyemail")]
         public async Task<IActionResult> FindByEmail([FromBody] string email)
         {
-
+            email = email.ToLower();
             var exist = await _email.EmailExist(email);
 
             if (!exist)
