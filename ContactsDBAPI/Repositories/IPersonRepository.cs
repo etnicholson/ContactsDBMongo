@@ -12,6 +12,8 @@ namespace ContactsDBAPI.Repositories
 
         Task<Person> FindPerson(string id);
 
+        Task<bool> PersonExist(string id);
+
         Task DeletePerson(string id);
 
     }

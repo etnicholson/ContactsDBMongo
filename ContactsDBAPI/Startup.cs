@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace ContactsDBAPI
@@ -44,6 +45,17 @@ namespace ContactsDBAPI
                     Version = "v1",
                     Description = "Contacts API using MongoDB",
                 });
+
+                c.AddSecurityDefinition("oauth2", new ApiKeyScheme
+                {
+                    Description = "Standard Authorization header using the Bearer scheme. Example: \"bearer {token}\"",
+                    In = "header",
+                    Name = "Authorization",
+                    Type = "apiKey"
+                });
+
+                c.OperationFilter<SecurityRequirementsOperationFilter>();
+
             });
 
             services.AddCors(options =>
@@ -92,9 +104,11 @@ namespace ContactsDBAPI
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Supplement V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Contacts V1");
             });
-            //app.UseHttpsRedirection();
+
+            app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
 
         }

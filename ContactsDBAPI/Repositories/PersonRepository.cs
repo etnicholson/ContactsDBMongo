@@ -40,5 +40,15 @@ namespace ContactsDBAPI.Repositories
 
             return person;
         }
+
+        public async Task<bool> PersonExist(string id)
+        {
+            var personToFind = await _persons.Find(x => x.Id == id).FirstOrDefaultAsync();
+
+            if (personToFind != null)
+                return true;
+
+            return false;
+        }
     }
 }

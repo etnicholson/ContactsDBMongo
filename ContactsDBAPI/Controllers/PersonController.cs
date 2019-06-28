@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ContactsDBAPI.Dto;
 using ContactsDBAPI.Models;
 using ContactsDBAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,7 @@ namespace ContactsDBAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PersonController : ControllerBase
     {
         private readonly IPhoneRepository _phone;
@@ -118,6 +120,44 @@ namespace ContactsDBAPI.Controllers
                 await _phone.CreatePhone(person.Id, item);
             }
             
+
+
+
+            return Ok();
+
+        }
+
+
+        [HttpPost("deleteperson")]
+        public async Task<IActionResult> DeletePerson([FromBody] string id)
+        {
+            var exist = await _person.PersonExist(id);
+
+
+            if (!exist)
+            {
+                return BadRequest("Person not on the database");
+            }
+
+
+
+
+            await _person.DeletePerson(id);
+
+            var phoneList = await _phone.FindAllUserNumber(id);
+            var emailList = await _email.FindAllUserEmails(id);
+
+            foreach (var item in phoneList)
+            {
+                await _phone.DeletePhone(item.Number);
+            }
+
+            foreach (var item in emailList)
+            {
+                await _email.DeleteEmail(item.UserEmail);
+            }
+
+
 
 
 
