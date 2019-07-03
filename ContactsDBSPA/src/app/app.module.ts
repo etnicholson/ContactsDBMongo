@@ -2,13 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {MaterialModule} from './material.module';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
-import { AuthService } from './_services/auth.service';
+
 
 
 @NgModule({
@@ -22,7 +23,7 @@ import { AuthService } from './_services/auth.service';
       BrowserAnimationsModule,
       MaterialModule,
       FormsModule,
-      AuthService
+      HttpClientModule
    ],
    providers: [],
    bootstrap: [
