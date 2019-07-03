@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
+import { AuthService } from './_services/auth.service';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { LoginComponent } from './login/login.component';
       AppRoutingModule,
       BrowserAnimationsModule,
       MaterialModule,
-      FormsModule
+      FormsModule,
+      AuthService
    ],
    providers: [],
    bootstrap: [
