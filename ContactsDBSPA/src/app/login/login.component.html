@@ -1,8 +1,17 @@
 
+
+
+
+
+
+
 <form (ngSubmit)="login()" #a="ngForm">
 
-    <div class="main-container">
+   <div class="main-container">
 
+
+              <div class="columns is-mobile is-centered">
+            <div class="column is-half">
             <mat-form-field>
             <input matInput placeholder="Email"
             class="form-control"
@@ -13,7 +22,13 @@
             name="email">
           </mat-form-field>
           <span *ngIf="!email.valid && email.touched">Please enter a valid email.</span>
+            </div>
+          </div>
 
+
+
+                  <div class="columns is-mobile is-centered">
+            <div class="column is-half">
           <mat-form-field>
             <input matInput placeholder="Enter your password" 
             class="form-control"
@@ -22,13 +37,23 @@
             [type]="hide ? 'password' : 'text'">
             <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </mat-form-field>
+            </div>
+          </div>
+
+          <div class="columns is-mobile is-centered">
+  <div class="column is-half">
           <button type="submit" 
-          class="btn btn-secondary"
+          class="button is-primary"
           [disabled]="!a.valid"
           >Login</button>
 
         </div>
         <span>{{error}}</span>
+  </div>
+</div>
+
+
+
 
         
 </form>
