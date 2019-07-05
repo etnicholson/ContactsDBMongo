@@ -1,0 +1,22 @@
+
+$primary-color-dark:   #1976D2;
+$accent-color:         #03A9F4;
+
+.navbar{
+    background-color: $primary-color-dark;
+    color: white;
+}
+
+.navbar-item{
+    color: white;
+}
+
+.navbar-item:hover{
+    color: $accent-color;
+}
+
+
+mat-menu{
+    color: white;
+
+}
