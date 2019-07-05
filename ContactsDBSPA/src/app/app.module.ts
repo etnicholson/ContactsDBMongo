@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
+import { SearchComponent } from './search/search.component';
 
 
 
@@ -19,7 +20,8 @@ import { HomeComponent } from './home/home.component';
       AppComponent,
       LoginComponent,
       NavbarComponent,
-      HomeComponent
+      HomeComponent,
+      SearchComponent
    ],
    imports: [
       BrowserModule,
