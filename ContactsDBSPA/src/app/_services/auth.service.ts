@@ -42,11 +42,12 @@ export class AuthService {
   register(user: UserRegister) {
     return this.http.post(this.baseUrl + 'register', user);
   }
-
+  */
+ 
   loggedIn() {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
   }
 
-  */
+
 }

@@ -15,9 +15,10 @@ export class HomeComponent implements OnInit {
 
     const loggedin = this.check();
 
-    if(loggedin){
+    if (loggedin) {
       this.router.navigate(['/search']);
-
+    } else {
+      this.router.navigate(['/login']);
     }
   }
 
