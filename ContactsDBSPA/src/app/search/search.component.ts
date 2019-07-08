@@ -7,9 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
+  searchString: string;
   constructor() { }
 
   ngOnInit() {
   }
+
+  search() {
+    if(this.searchString.length >= 10){
+
+
+    }
+
+    
+  }
+
+  findByPhone(phone: string){
+
+  }
+
+  findByEmail(email: string){
+
+  }
+
 
 }
