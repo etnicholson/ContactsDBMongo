@@ -13,7 +13,7 @@ namespace ContactsDBAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class PersonController : ControllerBase
     {
         private readonly IPhoneRepository _phone;
@@ -27,8 +27,8 @@ namespace ContactsDBAPI.Controllers
             _person = person;
         }
 
-        [HttpPost("findbyphone")]
-        public async Task<IActionResult> FindByPhone([FromBody] string phone)
+        [HttpGet("findbyphone/{phone}")]
+        public async Task<ActionResult<PersonDto>> FindByPhone(string phone)
         {
 
             var exist = await _phone.PhoneExist(phone);
