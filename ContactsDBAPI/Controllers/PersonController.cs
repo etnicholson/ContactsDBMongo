@@ -56,8 +56,8 @@ namespace ContactsDBAPI.Controllers
 
 
 
-        [HttpPost("findbyemail")]
-        public async Task<IActionResult> FindByEmail([FromBody] string email)
+        [HttpGet("findbyemail/{email}")]
+        public async Task<IActionResult> FindByEmail(string email)
         {
             email = email.ToLower();
             var exist = await _email.EmailExist(email);

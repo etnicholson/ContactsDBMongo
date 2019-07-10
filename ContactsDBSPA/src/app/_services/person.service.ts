@@ -33,6 +33,13 @@ export class PersonService {
     }
 
 
+    findByEmail(phone) {
+
+      return this.http.request<PersonDto>('get', this.baseUrl + 'findbyemail/' + phone, this.httpOptions).pipe(
+        map(res =>  res));
+  
+      }
+
 
 
 }
