@@ -1,10 +1,16 @@
-  <div class="columns is-mobile is-centered">
-        <div class="column is-half">
-          <mat-form-field>
-            <input matInput  placeholder="Search" (keyup)="search()"   [(ngModel)]="searchString" name="searchString">
+
+  <div  >
+          <mat-form-field class="search" >
+            <input matInput   placeholder="Search" (keyup)="search()"    [(ngModel)]="searchString" name="searchString">
           </mat-form-field>
-        </div>
   </div>
 
 
+
+
+<div *ngIf="person !== null">
+    <app-person [person] ="person">
+  
+      </app-person>
+</div>
 

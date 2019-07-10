@@ -18,11 +18,13 @@ export class SearchComponent implements OnInit {
 
 
   ngOnInit() {
+      this.person = null;
   }
 
   search() {
     if(this.searchString.length >= 10){
       this.findByPhone(this.searchString);
+      console.log(this.person);
 
     }
   }

@@ -13,7 +13,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
 import { PersonService } from './_services/person.service';
-
+import { PersonComponent } from './person/person.component';
 
 
 @NgModule({
@@ -22,7 +22,8 @@ import { PersonService } from './_services/person.service';
       LoginComponent,
       NavbarComponent,
       HomeComponent,
-      SearchComponent
+      SearchComponent,
+      PersonComponent
    ],
    imports: [
       BrowserModule,

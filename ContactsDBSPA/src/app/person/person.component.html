@@ -1,0 +1,46 @@
+<div class="columns">
+  <div class="column">
+
+      <span class="tag is-primary is-medium">
+          {{person.name}}
+      </span>
+
+
+    <div>
+        <span class="tag is-primary is-medium">
+            {{person.city}}
+        </span>
+
+    </div>
+
+    <div *ngFor="let item of person.emails">
+        <span class="tag is-primary is-medium">
+            {{item.userEmail}}
+        </span>
+
+    </div>
+    <div *ngFor="let item of person.phones">
+        <span class="tag is-primary is-medium">
+            {{item.number}}
+        </span>
+
+
+      </div>
+    
+  </div>
+  <div class="column">
+      <textarea class="textarea is-medium" placeholder="10 lines of textarea" rows="10">  {{person.notes}} </textarea>
+
+
+  </div>
+
+</div>
+
+<div class="columns">
+    <div class="column">
+        <a class="button is-danger">Delete</a>
+      </div>
+    <div class="column">
+        <a class="button is-primary">Save</a>
+      </div>
+  </div>
