@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
 import { PersonService } from './_services/person.service';
 import { PersonComponent } from './person/person.component';
+import { CreatepersonComponent } from './createperson/createperson.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { PersonComponent } from './person/person.component';
       NavbarComponent,
       HomeComponent,
       SearchComponent,
-      PersonComponent
+      PersonComponent,
+      CreatepersonComponent
    ],
    imports: [
       BrowserModule,

@@ -1,0 +1,33 @@
+<br>
+
+<form (ngSubmit)= "save()">
+
+<div class="columns">
+  <div class="column">
+
+
+          <input class="input" type="text"  [(ngModel)]="person.name"  name="name" placeholder="Name">
+
+          <input class="input" type="text"  [(ngModel)]="person.city"  name="city" placeholder="City">
+
+
+    
+  </div>
+  <div class="column">
+      <textarea class="textarea is-medium" placeholder="10 lines of textarea" rows="10">  {{person.notes}} </textarea>
+
+
+  </div>
+
+</div>
+
+<div class="columns">
+    <div class="column">
+
+      </div>
+    <div class="column">
+        <a class="button is-primary">Save</a>
+      </div>
+  </div>
+
+</form>

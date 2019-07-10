@@ -20,10 +20,13 @@
             <mat-icon>account_box</mat-icon>
             <span (click)="logout()">Logout</span>
           </button>
-          <button mat-menu-item disabled>
-            <mat-icon>fiber_new</mat-icon>
-            <span>New Contact</span>
-          </button>
+          <a [routerLink]="['/createperson']">
+            <button mat-menu-item>
+                <mat-icon>fiber_new</mat-icon>
+                <span>New Person</span>
+              </button>
+          </a>
+
         </mat-menu>
 
 
@@ -31,8 +34,8 @@
 
   <div  *ngIf="loggedIn()" id="navbarBasic" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item">
-        New Contact
+      <a class="navbar-item" [routerLink]="['/createperson']">
+        New Person
       </a>
 
 
