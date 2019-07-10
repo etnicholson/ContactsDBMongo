@@ -23,7 +23,6 @@ export class SearchComponent implements OnInit {
   search() {
     if(this.searchString.length >= 10){
       this.findByPhone(this.searchString);
-      console.log(this.person);
 
     }
   }
@@ -32,6 +31,7 @@ export class SearchComponent implements OnInit {
 
     this.personService.findByPhone(phone).subscribe(
       res =>  this.person = res
+
       );
 
   }

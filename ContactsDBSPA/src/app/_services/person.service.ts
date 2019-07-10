@@ -18,16 +18,16 @@ export class PersonService {
   constructor(private http: HttpClient) {
     this.httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
+        Accept: 'application/json',
 
-        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       })
     };
    }
 
    findByPhone(phone) {
 
-    return this.http.get<PersonDto>(this.baseUrl + 'findbyphone/' + phone,  this.httpOptions).pipe(
+    return this.http.request<PersonDto>('get', this.baseUrl + 'findbyphone/' + phone, this.httpOptions).pipe(
       map(res =>  res));
 
     }
