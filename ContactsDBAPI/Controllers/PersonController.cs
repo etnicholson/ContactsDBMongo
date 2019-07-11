@@ -27,6 +27,32 @@ namespace ContactsDBAPI.Controllers
             _person = person;
         }
 
+
+        [HttpGet("findbyid/{id}")]
+        public async Task<ActionResult<PersonDto>> FindById(string id)
+        {
+
+            var exist = await _person.PersonExist(id);
+
+            if (!exist)
+            {
+                return BadRequest("Person not found");
+            }
+
+
+            var user = await _person.FindPerson(id);
+            var personID = user.Id;
+            var phoneList = await _phone.FindAllUserNumber(personID);
+            var EmailList = await _email.FindAllUserEmails(personID);
+
+            var person = new PersonDto(user, phoneList, EmailList);
+
+
+            return Ok(person);
+
+        }
+
+
         [HttpGet("findbyphone/{phone}")]
         public async Task<ActionResult<PersonDto>> FindByPhone(string phone)
         {
@@ -93,8 +119,13 @@ namespace ContactsDBAPI.Controllers
                     return BadRequest("Person's email already on the database");
                 }
 
+                var phoneValid = _phone.ValidPhone(p.Phone);
+                if (!phoneValid)
+                {
+                return BadRequest("Invalid Phone number");
 
-                var existphone = await _phone.PhoneExist(p.Phone);
+                }
+            var existphone = await _phone.PhoneExist(p.Phone);
 
                 if (existphone)
                 {

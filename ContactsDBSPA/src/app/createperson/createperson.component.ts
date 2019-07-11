@@ -25,8 +25,8 @@ export class CreatepersonComponent implements OnInit {
   filteredOptions: Observable<string[]>;
 
 
-  constructor(private citieservice: CitiesService, private personService: PersonService, 
-    private alertify: AlertifyService) { }
+  constructor(private citieservice: CitiesService, private personService: PersonService,
+              private alertify: AlertifyService) { }
 
 
   ngOnInit() {

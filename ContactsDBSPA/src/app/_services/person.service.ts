@@ -32,6 +32,12 @@ export class PersonService {
 
     }
 
+    findById(id) {
+
+      return this.http.request<PersonDto>('get', this.baseUrl + 'findbyid/' + id, this.httpOptions).pipe(
+        map(res =>  res));
+
+      }
 
     findByEmail(phone) {
 
@@ -40,12 +46,12 @@ export class PersonService {
 
       }
 
-      CreatePerson(person) {
+    CreatePerson(person) {
 
         return this.http.post(this.baseUrl + 'createperson/', person, this.httpOptions).pipe(
           map(res =>  res));
 
-        }
+      }
 
 
 

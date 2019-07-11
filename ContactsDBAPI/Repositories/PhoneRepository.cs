@@ -78,5 +78,15 @@ namespace ContactsDBAPI.Repositories
 
         }
 
+        public bool ValidPhone(string n)
+        {
+            bool valid = false;
+            n = PhoneConvert(n);
+
+            if (n.Length == 10) valid = true;
+
+            return valid;
+        }
+
     }
 }

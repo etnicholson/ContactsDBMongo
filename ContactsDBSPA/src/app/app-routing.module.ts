@@ -10,6 +10,8 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent },
   {path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
+  {path: 'search/:id', component: SearchComponent, canActivate: [AuthGuard] },
+
   {path: 'createperson', component: CreatepersonComponent, canActivate: [AuthGuard] },
 
 

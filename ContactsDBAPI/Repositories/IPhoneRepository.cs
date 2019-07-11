@@ -17,5 +17,7 @@ namespace ContactsDBAPI.Repositories
         Task DeletePhone(string phone);
 
         Task<bool> PhoneExist(string phone);
+
+        bool ValidPhone(string phone);
     }
 }
