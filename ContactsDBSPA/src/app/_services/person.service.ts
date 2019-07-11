@@ -37,8 +37,15 @@ export class PersonService {
 
       return this.http.request<PersonDto>('get', this.baseUrl + 'findbyemail/' + phone, this.httpOptions).pipe(
         map(res =>  res));
-  
+
       }
+
+      CreatePerson(person) {
+
+        return this.http.post(this.baseUrl + 'createperson/', person, this.httpOptions).pipe(
+          map(res =>  res));
+
+        }
 
 
 

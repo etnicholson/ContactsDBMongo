@@ -50,5 +50,23 @@ namespace ContactsDBAPI.Repositories
 
             return false;
         }
+
+        public async Task<List<string>> RetreiveCities()
+        {
+            var cities = new List<string>();
+            var persons = await _persons.Find(s => true).ToListAsync();
+
+            foreach (var item in persons)
+            {
+                if (!cities.Contains(item.City))
+                {
+                    cities.Add(item.City);
+                }
+
+            }
+
+            return cities;
+
+        }
     }
 }

@@ -16,5 +16,7 @@ namespace ContactsDBAPI.Repositories
 
         Task DeletePerson(string id);
 
+        Task<List<string>> RetreiveCities();
+
     }
 }

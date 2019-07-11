@@ -1,33 +1,55 @@
 <br>
 
-<form (ngSubmit)= "save()">
-
-<div class="columns">
-  <div class="column">
-
-
-          <input class="input" type="text"  [(ngModel)]="person.name"  name="name" placeholder="Name">
-
-          <input class="input" type="text"  [(ngModel)]="person.city"  name="city" placeholder="City">
-
-
-    
-  </div>
-  <div class="column">
-      <textarea class="textarea is-medium" placeholder="10 lines of textarea" rows="10">  {{person.notes}} </textarea>
-
-
-  </div>
-
-</div>
-
+<form class="formCreate" (ngSubmit)="save()">
+  
 <div class="columns">
     <div class="column">
+  
+  
+  
+            <input class="input" type="text"  [formControl]="name" name="name" placeholder="Name">
+            <p *ngIf="name.errors && name.touched"> Name is required</p>  
 
-      </div>
+            <input  class="input" type="text" placeholder="City" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+            <p *ngIf="myControl.errors && myControl.touched"> City is required</p>  
+            <input class="input" type="text"  [formControl]="email" name="email" placeholder="Email">  
+            <p *ngIf="email.errors && email.touched"> Email isn't valid</p>    
+            <input class="input" type="text"  [formControl]="phone" name="phone" placeholder="Phone">
+            <p *ngIf="phone.errors && phone.touched"> Phone must be 10 characters</p>    
+
+
+
+
+  
+  
+      
+    </div>
     <div class="column">
-        <a class="button is-primary">Save</a>
-      </div>
-  </div>
 
-</form>
+        <textarea class="textarea is-medium"  [formControl]="notes" placeholder="Notes" rows="10"> </textarea>
+        <p *ngIf="notes.errors && notes.touched"> Notes is required</p>  
+    </div>
+  
+  </div>
+  
+  <div class="columns">
+      <div class="column">
+  
+        </div>
+      <div class="column">
+          <div *ngIf="myControl.value !=='' && name.value !=='' && notes.value !=='' " >
+            <div *ngIf="!phone.errors && phone.value !== '' || !email.errors && email.value !== ''">
+                <button  type="submit" class="button is-primary">Save</button>
+            </div>
+
+          </div> 
+
+        </div>
+    </div>
+
+  </form>

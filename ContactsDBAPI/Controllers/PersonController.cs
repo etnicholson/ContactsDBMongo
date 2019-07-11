@@ -82,48 +82,43 @@ namespace ContactsDBAPI.Controllers
 
 
         [HttpPost("createperson")]
-        public async Task<IActionResult> CreatePerson([FromBody] PersonRegisterDto p)
+        public async Task<IActionResult> CreatePerson([FromBody] CreatePersonDto p)
         {
 
-            foreach (var item in p.Emails)
-            {
-                var exist = await _email.EmailExist(item);
 
-                if (exist)
+                var existemail = await _email.EmailExist(p.Email);
+
+                if (existemail)
                 {
                     return BadRequest("Person's email already on the database");
                 }
-            }
 
-            foreach (var item in p.Phones)
-            {
-                var exist = await _phone.PhoneExist(item);
 
-                if (exist)
+                var existphone = await _phone.PhoneExist(p.Phone);
+
+                if (existphone)
                 {
                     return BadRequest("Person's number already on the database");
                 }
-            }
+
 
 
 
 
             var person = await _person.CreatePerson(p.Name, p.City, p.Notes);
 
-            foreach (var item in p.Emails)
-            {
-                await _email.CreateEmail(person.Id, item);
-            }
 
-            foreach (var item in p.Phones)
-            {
-                await _phone.CreatePhone(person.Id, item);
-            }
+                await _email.CreateEmail(person.Id, p.Email);
+
+
+ 
+                await _phone.CreatePhone(person.Id, p.Phone);
+
             
 
 
 
-            return Ok();
+            return Ok(person.Id);
 
         }
 
