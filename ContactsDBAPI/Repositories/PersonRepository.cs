@@ -65,6 +65,7 @@ namespace ContactsDBAPI.Repositories
 
             }
 
+            cities.Sort();
             return cities;
 
         }

@@ -10,7 +10,7 @@
             <input class="input" type="text"  [formControl]="name" name="name" placeholder="Name">
             <p *ngIf="name.errors && name.touched"> Name is required</p>  
 
-            <input  class="input" type="text" placeholder="City" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <input  class="input" type="text" placeholder="City" aria-label="Number"  [formControl]="myControl" [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                 {{option}}
