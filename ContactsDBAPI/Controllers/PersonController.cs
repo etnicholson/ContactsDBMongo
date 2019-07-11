@@ -111,26 +111,33 @@ namespace ContactsDBAPI.Controllers
         public async Task<IActionResult> CreatePerson([FromBody] CreatePersonDto p)
         {
 
-
+            if(p.Email != "")
+            {
                 var existemail = await _email.EmailExist(p.Email);
 
                 if (existemail)
                 {
                     return BadRequest("Person's email already on the database");
                 }
-
+            }
+ 
+            if(p.Phone != "")
+            {
                 var phoneValid = _phone.ValidPhone(p.Phone);
                 if (!phoneValid)
                 {
-                return BadRequest("Invalid Phone number");
+                    return BadRequest("Invalid Phone number");
 
                 }
-            var existphone = await _phone.PhoneExist(p.Phone);
+
+                var existphone = await _phone.PhoneExist(p.Phone);
 
                 if (existphone)
                 {
                     return BadRequest("Person's number already on the database");
                 }
+
+            }
 
 
 

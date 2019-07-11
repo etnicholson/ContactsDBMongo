@@ -6,6 +6,7 @@ import {map, startWith} from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
 import { PersonService } from '../_services/person.service';
 import { AlertifyService } from '../_services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-createperson',
@@ -26,7 +27,7 @@ export class CreatepersonComponent implements OnInit {
 
 
   constructor(private citieservice: CitiesService, private personService: PersonService,
-              private alertify: AlertifyService) { }
+              private alertify: AlertifyService, private router: Router) { }
 
 
   ngOnInit() {
@@ -39,7 +40,7 @@ export class CreatepersonComponent implements OnInit {
     this.person = new CreatePerson(this.name.value, this.myControl.value, this.notes.value,
       this.phone.value, this.email.value);
 
-    this.personService.CreatePerson(this.person).subscribe(res => console.log(res),
+    this.personService.CreatePerson(this.person).subscribe(res => this.router.navigate(['/search/' + res]),
      error => this.alertify.error(error.error)
     );
 
