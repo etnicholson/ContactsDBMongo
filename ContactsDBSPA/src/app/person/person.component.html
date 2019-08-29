@@ -40,10 +40,26 @@
 
 <div class="columns">
     <div  class="column">
-        <a class="button is-danger">Delete</a>
+        <a class="button is-danger" (click)="toggleModal()">Delete</a>
       </div>
 
     <div *ngIf="valueChanged()" class="column">
         <a class="button is-primary">Save</a>
       </div>
+  </div>
+
+
+
+  <div class="modal" [ngClass]="{ 'is-active' : isModalActive }">
+    <div class="modal-background" (click)="toggleModal()"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Are you sure want to DELETE?</p>
+        <button class="delete" aria-label="close" (click)="toggleModal()"></button>
+      </header>
+      <footer class="modal-card-foot">
+        <button class="button is-danger" (click)="delete()">DELETE</button>
+        <button class="button" (click)="toggleModal()">Cancel</button>
+      </footer>
+    </div>
   </div>

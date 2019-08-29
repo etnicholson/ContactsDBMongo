@@ -13,7 +13,7 @@ namespace ContactsDBAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+
     public class PersonController : ControllerBase
     {
         private readonly IPhoneRepository _phone;
@@ -174,8 +174,8 @@ namespace ContactsDBAPI.Controllers
         }
 
 
-        [HttpPost("deleteperson")]
-        public async Task<IActionResult> DeletePerson([FromBody] string id)
+        [HttpPost("deleteperson/{id}")]
+        public async Task<IActionResult> DeletePerson(string id)
         {
             var exist = await _person.PersonExist(id);
 

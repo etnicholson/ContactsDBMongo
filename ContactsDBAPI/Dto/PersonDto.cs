@@ -11,12 +11,14 @@ namespace ContactsDBAPI.Dto
         public PersonDto(Person person, List<Phone> phones, List<Email> emails)
         {
             Name = person.Name;
+            Id = person.Id;
             City = person.City;
             Notes = person.Notes;
             Phones = phones;
             Emails = emails;
         }
 
+        public string Id { get; set; }
         public string Name { get; set; }
 
         public string City { get; set; }

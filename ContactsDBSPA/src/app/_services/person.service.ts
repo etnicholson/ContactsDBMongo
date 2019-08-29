@@ -53,6 +53,12 @@ export class PersonService {
 
       }
 
+      deletePerson(id) {
+
+        return this.http.request<PersonDto>('post', this.baseUrl + 'deleteperson/' +  id, this.httpOptions).pipe(
+          map(res =>  res));
+
+      }
 
 
 }
