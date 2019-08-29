@@ -36,6 +36,8 @@ namespace ContactsDBAPI
             services.AddScoped<IPhoneRepository, PhoneRepository>();
             services.AddScoped<IEmailRepository, EmailRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<ILogRepository, LogRepository>();
+
 
             services.AddSwaggerGen(c =>
             {

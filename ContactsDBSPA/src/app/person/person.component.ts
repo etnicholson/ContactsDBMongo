@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { PersonDto } from '../_models/PersonDto';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-person',
@@ -9,9 +10,21 @@ import { PersonDto } from '../_models/PersonDto';
 export class PersonComponent implements OnInit {
 
   @Input()  person: PersonDto;
-  constructor() { }
+  notes = '' ;
+  constructor() {
+   }
 
   ngOnInit() {
+
+    console.log('hiiiii');
+
+  }
+
+
+  valueChanged() {
+    if (this.person.notes.length !== this.notes.length) {
+      return true;
+    }
   }
 
 }

@@ -19,12 +19,15 @@ namespace ContactsDBAPI.Controllers
         private readonly IPhoneRepository _phone;
         private readonly IPersonRepository _person;
         private readonly IEmailRepository _email;
+        private readonly ILogRepository _log;
 
-        public PersonController(IPhoneRepository phone, IPersonRepository person, IEmailRepository email)
+
+        public PersonController(IPhoneRepository phone, IPersonRepository person, IEmailRepository email, ILogRepository log)
         {
             _phone = phone;
             _email = email;
             _person = person;
+            _log = log;
         }
 
 
@@ -111,7 +114,11 @@ namespace ContactsDBAPI.Controllers
         public async Task<IActionResult> CreatePerson([FromBody] CreatePersonDto p)
         {
 
-            if(p.Email != "")
+
+
+
+
+            if (p.Email != "")
             {
                 var existemail = await _email.EmailExist(p.Email);
 
@@ -146,11 +153,17 @@ namespace ContactsDBAPI.Controllers
             var person = await _person.CreatePerson(p.Name, p.City, p.Notes);
 
 
-                await _email.CreateEmail(person.Id, p.Email);
+            await _email.CreateEmail(person.Id, p.Email);
 
 
  
-                await _phone.CreatePhone(person.Id, p.Phone);
+            await _phone.CreatePhone(person.Id, p.Phone);
+
+
+            var userEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email).Value;
+
+
+            await _log.Create(userEmail, p.Phone, p.Email, "CREATED");
 
             
 
@@ -173,21 +186,27 @@ namespace ContactsDBAPI.Controllers
             }
 
 
-
+            var person = await _person.FindPerson(id);
 
             await _person.DeletePerson(id);
 
             var phoneList = await _phone.FindAllUserNumber(id);
             var emailList = await _email.FindAllUserEmails(id);
 
+            var userEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email).Value;
+
+
             foreach (var item in phoneList)
             {
                 await _phone.DeletePhone(item.Number);
+                await _log.Create(userEmail, item.Number, "",  $"DELETED - {person.Name} ");
             }
 
             foreach (var item in emailList)
             {
                 await _email.DeleteEmail(item.UserEmail);
+                await _log.Create(userEmail, "" , item.UserEmail, $"DELETED - {person.Name} ");
+
             }
 
 

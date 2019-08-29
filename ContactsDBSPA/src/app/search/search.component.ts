@@ -44,7 +44,9 @@ export class SearchComponent implements OnInit {
   findByPhone(phone: string) {
 
     this.personService.findByPhone(phone).subscribe(
-      (res: any) =>  this.person = res,  error => {
+      (res: any) =>  {
+        this.person = res;
+      },  error => {
         this.alertify.error('Phone not on file');
         this.person = null;
 
