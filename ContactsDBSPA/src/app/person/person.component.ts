@@ -18,6 +18,27 @@ export class PersonComponent implements OnInit {
    }
 
   ngOnInit() {
+    console.log('hi');
+
+  }
+
+
+
+  update() {
+
+    this.personService.updatePerson(this.person).subscribe(
+      (res: any) =>  {
+
+        this.router.navigate(['/search/' + this.person.id]);
+
+
+
+      },  error => {
+        console.log(error);
+
+      }
+
+      );
 
 
   }
@@ -26,7 +47,7 @@ export class PersonComponent implements OnInit {
 
     this.personService.deletePerson(this.person.id).subscribe(
       (res: any) =>  {
-        console.log('hi');
+
         this.router.navigateByUrl('/');
 
 

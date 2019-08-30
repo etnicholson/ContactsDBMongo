@@ -163,13 +163,44 @@ namespace ContactsDBAPI.Controllers
             var userEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email).Value;
 
 
-            await _log.Create(userEmail, p.Phone, p.Email, "CREATED");
+            await _log.Create(userEmail, p.Phone, p.Email, $"CREATED - {p.Name}");
 
             
 
 
 
             return Ok(person.Id);
+
+        }
+
+
+        [HttpPost("updateperson")]
+        public async Task<IActionResult> UpdatePerson([FromBody] PersonUpdateDto p)
+        {
+
+
+            var exist = await _person.PersonExist(p.Id);
+
+            if (!exist)
+            {
+                return BadRequest("Person not found");
+            }
+
+
+            await _person.UpdateNotes(p);
+
+
+
+            var userEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email).Value;
+
+
+            await _log.Create(userEmail, "", "", $"Notes UPDATED - {p.Name}");
+
+
+
+
+
+            return Ok();
 
         }
 

@@ -1,4 +1,5 @@
-﻿using ContactsDBAPI.Models;
+﻿using ContactsDBAPI.Dto;
+using ContactsDBAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace ContactsDBAPI.Repositories
     public interface IPersonRepository
     {
         Task<Person> CreatePerson(string name, string city, string notes);
+        Task UpdateNotes(PersonUpdateDto person);
 
         Task<Person> FindPerson(string id);
 

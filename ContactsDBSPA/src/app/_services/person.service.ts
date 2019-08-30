@@ -53,6 +53,13 @@ export class PersonService {
 
       }
 
+      updatePerson(person) {
+
+        return this.http.post(this.baseUrl + 'updateperson/', person, this.httpOptions).pipe(
+          map(res =>  res));
+
+      }
+
       deletePerson(id) {
 
         return this.http.request<PersonDto>('post', this.baseUrl + 'deleteperson/' +  id, this.httpOptions).pipe(

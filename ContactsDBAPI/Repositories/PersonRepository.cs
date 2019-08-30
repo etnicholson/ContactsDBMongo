@@ -1,4 +1,5 @@
-﻿using ContactsDBAPI.Models;
+﻿using ContactsDBAPI.Dto;
+using ContactsDBAPI.Models;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System;
@@ -68,6 +69,14 @@ namespace ContactsDBAPI.Repositories
             cities.Sort();
             return cities;
 
+        }
+
+        public async Task UpdateNotes(PersonUpdateDto person)
+        {
+            var final = await FindPerson(person.Id);
+            final.Notes = person.Notes;
+
+            await _persons.ReplaceOneAsync(su => su.Id == final.Id, final);
         }
     }
 }
