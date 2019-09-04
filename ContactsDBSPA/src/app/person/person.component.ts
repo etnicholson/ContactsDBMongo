@@ -3,6 +3,7 @@ import { PersonDto } from '../_models/PersonDto';
 import { FormControl } from '@angular/forms';
 import { PersonService } from '../_services/person.service';
 import { Router } from '@angular/router';
+import { PhoneService } from '../_services/phone.service';
 
 @Component({
   selector: 'app-person',
@@ -13,12 +14,16 @@ export class PersonComponent implements OnInit {
 
   @Input()  person: PersonDto;
   isModalActive = false;
+  whatToDelete = '';
+  phoneToDetele =  '';
+  emailToDetele =  '';
+  modalTitle = 'Are you sure want to Delete Person?';
   notes = '' ;
-  constructor(private personService: PersonService, private router: Router) {
+  constructor(private personService: PersonService, private phoneService: PhoneService, private router: Router) {
    }
 
   ngOnInit() {
-    console.log('hi');
+
 
   }
 
@@ -43,7 +48,23 @@ export class PersonComponent implements OnInit {
 
   }
 
-  delete() {
+  deleteNumber() {
+
+    this.phoneService.deletePhone(this.phoneToDetele).subscribe(
+      (res: any) =>  {
+
+        this.person.phones = this.person.phones.filter(i => i.number !== this.phoneToDetele);
+        this.isModalActive = false;
+
+      },  error => {
+        console.log(error);
+
+      }
+
+      );
+  }
+
+  deletePerson() {
 
     this.personService.deletePerson(this.person.id).subscribe(
       (res: any) =>  {
@@ -57,6 +78,19 @@ export class PersonComponent implements OnInit {
       }
 
       );
+  }
+
+  delete() {
+
+    if (this.whatToDelete === 'Phone') {
+      this.deleteNumber();
+      } else if (this.whatToDelete === 'Email') {
+        console.log('email');
+      } else {
+        this.deletePerson();
+      }
+
+
 
 
   }
@@ -66,8 +100,18 @@ export class PersonComponent implements OnInit {
     }
   }
 
-  toggleModal() {
+  toggleModal(toDeleteType: string, itemToDelete: string) {
+    this.whatToDelete = toDeleteType;
+    if (this.whatToDelete === 'Phone') {
+    this.phoneToDetele = itemToDelete;
+    }
+
+    if (this.whatToDelete === 'Email') {
+      this.emailToDetele = itemToDelete;
+    }
+
     this.isModalActive = !this.isModalActive;
+
   }
 
 }

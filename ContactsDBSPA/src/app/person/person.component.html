@@ -23,6 +23,9 @@
         <span class="tag is-primary is-medium">
             {{item.number}}
         </span>
+        <span (click)="toggleModal('Phone', item.number)" class="icon has-text-danger">
+          <i class="fas fa-ban"></i>
+        </span>
 
 
       </div>
@@ -40,7 +43,7 @@
 
 <div class="columns">
     <div  class="column">
-        <a class="button is-danger" (click)="toggleModal()">Delete</a>
+        <a class="button is-danger" (click)="toggleModal('Person')">Delete</a>
       </div>
 
     <div *ngIf="valueChanged()" class="column">
@@ -54,7 +57,7 @@
     <div class="modal-background" (click)="toggleModal()"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Are you sure want to DELETE?</p>
+        <p class="modal-card-title" >Are you sure want to DELETE {{whatToDelete}}</p>
         <button class="delete" aria-label="close" (click)="toggleModal()"></button>
       </header>
       <footer class="modal-card-foot">
