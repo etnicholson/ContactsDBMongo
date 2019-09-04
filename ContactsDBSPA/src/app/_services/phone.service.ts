@@ -30,4 +30,11 @@ export class PhoneService {
       map(res =>  res));
 
   }
+
+  CreatePhone(phone) {
+
+    return this.http.post(this.baseUrl + 'createphone/', phone, this.httpOptions).pipe(
+      map(res =>  res));
+
+  }
 }

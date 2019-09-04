@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ContactsDBAPI.Dto;
+using ContactsDBAPI.Models;
 using ContactsDBAPI.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -26,6 +28,29 @@ namespace ContactsDBAPI.Controllers
             _person = person;
         }
 
+
+        [HttpPost("createphone")]
+        public async Task<ActionResult<Phone>> CreatePhone([FromBody] CreatePhoneDto number)
+        {
+            var exist = await _phone.PhoneExist(number.Number);
+
+            if (exist)
+            {
+                return BadRequest("Phone already on the database");
+            }
+
+            var phoneToReturn = await _phone.CreatePhone(number.PersonID, number.Number);
+            var person = await _person.FindPerson(number.PersonID);
+
+            var userEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email).Value;
+
+            await _log.Create(userEmail, number.Number, "", $"PHONE Created - {person.Name} ");
+
+
+            return Ok(phoneToReturn);
+        }
+
+
         [HttpPost("deletephone/{number}")]
         public async Task<IActionResult> DeletePhone(string number)
         {
@@ -42,7 +67,7 @@ namespace ContactsDBAPI.Controllers
             await _phone.DeletePhone(number);
             var userEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email).Value;
 
-            await _log.Create(userEmail, null, "", $"DELETED - {person.Name} ");
+            await _log.Create(userEmail, number, "", $"PHONE DELETED - {person.Name} ");
 
 
             return Ok();
