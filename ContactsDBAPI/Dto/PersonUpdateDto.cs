@@ -11,5 +11,9 @@ namespace ContactsDBAPI.Dto
         public string Name { get; set; }
         public string Notes { get; set; }
 
+        public string City { get; set; }
+
+
+
     }
 }

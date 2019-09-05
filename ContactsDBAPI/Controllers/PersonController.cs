@@ -186,15 +186,19 @@ namespace ContactsDBAPI.Controllers
                 return BadRequest("Person not found");
             }
 
-
-            await _person.UpdateNotes(p);
-
-
-
             var userEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email).Value;
 
 
-            await _log.Create(userEmail, "", "", $"Notes UPDATED - {p.Name}");
+                await _log.Create(userEmail, "", "", $"Notes UPDATED - {p.Name}");
+                await _person.UpdateNotes(p);
+            
+
+
+
+
+  
+
+
 
 
 
