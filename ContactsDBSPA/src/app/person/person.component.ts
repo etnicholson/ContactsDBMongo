@@ -7,6 +7,7 @@ import { PhoneService } from '../_services/phone.service';
 import { CreatePhone } from '../_models/createPhone';
 import { EmailService } from '../_services/email.service';
 import { CreateEmail } from '../_models/createEmail';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-person',
@@ -28,7 +29,7 @@ export class PersonComponent implements OnInit {
   email = new FormControl('', Validators.email);
   emailToAdd = '';
   constructor(private personService: PersonService, private phoneService: PhoneService, private emailService: EmailService
-    ,         private router: Router) {
+    ,         private router: Router, private alertify: AlertifyService) {
    }
 
   ngOnInit() {
@@ -48,7 +49,8 @@ export class PersonComponent implements OnInit {
 
 
       },  error => {
-        console.log(error);
+        this.alertify.error(error.error);
+
 
       }
 
@@ -66,8 +68,8 @@ export class PersonComponent implements OnInit {
         this.isModalActive = false;
 
       },  error => {
-        console.log(error);
-
+        this.alertify.error(error.error);
+        this.isModalActive = false;
       }
 
       );
@@ -82,8 +84,8 @@ export class PersonComponent implements OnInit {
         this.isModalActive = false;
 
       },  error => {
-        console.log(error);
-
+        this.alertify.error(error.error);
+        this.isModalActive = false;
       }
 
       );
@@ -100,7 +102,9 @@ export class PersonComponent implements OnInit {
         this.isModalAdd = false;
 
       },  error => {
-        console.log(error);
+
+        this.alertify.error(error.error);
+        this.isModalAdd = false;
 
       }
 
@@ -121,8 +125,8 @@ export class PersonComponent implements OnInit {
         this.isModalAdd = false;
 
       },  error => {
-        console.log(error);
-
+        this.alertify.error(error.error);
+        this.isModalAdd = false;
       }
 
       );
@@ -137,7 +141,8 @@ export class PersonComponent implements OnInit {
 
 
       },  error => {
-        console.log(error);
+        this.alertify.error(error.error);
+
 
       }
 
