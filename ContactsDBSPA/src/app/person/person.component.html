@@ -13,7 +13,7 @@
 
     </div>
 
-     <p style="color: white; margin-top: 10px">Add Email 
+     <p style="color: white; margin-top: 10px" (click)="toggleModalAdd('Email')">Add Email 
       <i class="fas fa-plus"></i>
     </p>
 
@@ -21,10 +21,13 @@
         <span class="tag is-primary is-medium">
             {{item.userEmail}}
         </span>
+        <span (click)="toggleModal('Email', item.userEmail)" class="icon has-text-danger">
+          <i class="fas fa-ban"></i>
+        </span>
 
 
     </div>
-    <p style="color: white; margin-top: 10px"  (click)="toggleModalAdd()">Add Number 
+    <p style="color: white; margin-top: 10px"  (click)="toggleModalAdd('Phone')">Add Number 
         <i class="fas fa-plus"></i></p>
     <div *ngFor="let item of person.phones">
         <span class="tag is-primary is-medium">
@@ -79,15 +82,29 @@
   
   <div class="modal" [ngClass]="{ 'is-active' : isModalAdd }">
     <div class="modal-background" (click)="toggleModalAdd()"></div>
+
     <div class="modal-card">
       <header class="modal-card-head">
-        <input class="input" type="text"  [formControl]="phone" name="phone" placeholder="Phone">
-        <p *ngIf="phone.errors && phone.touched"> Phone must be 10 characters</p>            
-        <button class="delete" aria-label="close" (click)="toggleModalAdd()"></button>
+
+        <div *ngIf="whatToAdd === 'Phone'">
+            <input class="input" type="text"  [formControl]="phone" name="phone" placeholder="Phone">
+            <p *ngIf="phone.errors && phone.touched"> Phone must be 10 characters</p>            
+
+        </div>
+        <div *ngIf="whatToAdd === 'Email'">
+            <input class="input" type="text"  [formControl]="email" name="email" placeholder="Email">
+            <p *ngIf="email.errors && email.touched"> Enter a valid email</p>            
+
+        </div>
+
       </header>
       <footer class="modal-card-foot">
-        <div *ngIf="!phone.errors">
+        <div *ngIf="!phone.errors && phone.touched">
             <button class="button is-dark" (click)="createNumber()">Save</button>
+        </div>
+
+        <div *ngIf="!email.errors && email.touched">
+            <button class="button is-dark" (click)="createEmail()">Save</button>
         </div>
       
         <button class="button" (click)="toggleModalAdd()">Cancel</button>

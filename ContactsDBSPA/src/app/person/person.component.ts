@@ -5,6 +5,8 @@ import { PersonService } from '../_services/person.service';
 import { Router } from '@angular/router';
 import { PhoneService } from '../_services/phone.service';
 import { CreatePhone } from '../_models/createPhone';
+import { EmailService } from '../_services/email.service';
+import { CreateEmail } from '../_models/createEmail';
 
 @Component({
   selector: 'app-person',
@@ -17,13 +19,16 @@ export class PersonComponent implements OnInit {
   isModalActive = false;
   isModalAdd = false;
   whatToDelete = '';
+  whatToAdd = '';
   phoneToDetele =  '';
   emailToDetele =  '';
   modalTitle = 'Are you sure want to Delete Person?';
   notes = '' ;
   phone = new FormControl('', Validators.minLength(10));
+  email = new FormControl('', Validators.email);
   emailToAdd = '';
-  constructor(private personService: PersonService, private phoneService: PhoneService, private router: Router) {
+  constructor(private personService: PersonService, private phoneService: PhoneService, private emailService: EmailService
+    ,         private router: Router) {
    }
 
   ngOnInit() {
@@ -68,11 +73,29 @@ export class PersonComponent implements OnInit {
       );
   }
 
+  deleteEmail() {
+
+    this.emailService.deleteEmail(this.emailToDetele).subscribe(
+      (res: any) =>  {
+
+        this.person.emails = this.person.emails.filter(i => i.userEmail !== this.emailToDetele);
+        this.isModalActive = false;
+
+      },  error => {
+        console.log(error);
+
+      }
+
+      );
+  }
+
+
   createNumber() {
     const tempPerson = new CreatePhone(this.person.id, this.phone.value);
     this.phoneService.CreatePhone(tempPerson).subscribe(
       (res: any) =>  {
-
+        this.phone.setValue('');
+        this.phone.markAsUntouched();
         this.person.phones.push(res);
         this.isModalAdd = false;
 
@@ -84,6 +107,26 @@ export class PersonComponent implements OnInit {
       );
   }
 
+
+  createEmail() {
+
+    const tempPerson = new CreateEmail(this.person.id, this.email.value);
+
+    this.emailService.CreateEmail(tempPerson).subscribe(
+      (res: any) =>  {
+
+        this.person.emails.push(res);
+        this.email.setValue('');
+        this.email.markAsUntouched();
+        this.isModalAdd = false;
+
+      },  error => {
+        console.log(error);
+
+      }
+
+      );
+  }
 
   deletePerson() {
 
@@ -106,7 +149,8 @@ export class PersonComponent implements OnInit {
     if (this.whatToDelete === 'Phone') {
       this.deleteNumber();
       } else if (this.whatToDelete === 'Email') {
-        console.log('email');
+
+        this.deleteEmail();
       } else {
         this.deletePerson();
       }
@@ -135,9 +179,9 @@ export class PersonComponent implements OnInit {
 
   }
 
-  toggleModalAdd() {
+  toggleModalAdd(typeToAdd: string) {
 
-    
+    this.whatToAdd = typeToAdd;
 
     this.isModalAdd = !this.isModalAdd;
   }
