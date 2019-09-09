@@ -75,6 +75,8 @@ namespace ContactsDBAPI.Repositories
         {
             var final = await FindPerson(person.Id);
             final.Notes = person.Notes;
+            final.Name = person.Name;
+            final.City = person.City;
 
             await _persons.ReplaceOneAsync(su => su.Id == final.Id, final);
         }

@@ -191,7 +191,7 @@ namespace ContactsDBAPI.Controllers
 
                 await _log.Create(userEmail, "", "", $"Notes UPDATED - {p.Name}");
                 await _person.UpdateNotes(p);
-            
+
 
 
 

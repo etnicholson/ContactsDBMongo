@@ -15,6 +15,7 @@ import { SearchComponent } from './search/search.component';
 import { PersonService } from './_services/person.service';
 import { PersonComponent } from './person/person.component';
 import { CreatepersonComponent } from './createperson/createperson.component';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { CreatepersonComponent } from './createperson/createperson.component';
       HomeComponent,
       SearchComponent,
       PersonComponent,
-      CreatepersonComponent
+      CreatepersonComponent,
+      AdminComponent
    ],
    imports: [
       BrowserModule,
