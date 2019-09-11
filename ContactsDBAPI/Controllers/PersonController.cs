@@ -157,7 +157,7 @@ namespace ContactsDBAPI.Controllers
 
 
  
-            await _phone.CreatePhone(person.Id, p.Phone);
+            await _phone.CreatePhone(person.Id, p.Phone,p.Name);
 
 
             var userEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email).Value;

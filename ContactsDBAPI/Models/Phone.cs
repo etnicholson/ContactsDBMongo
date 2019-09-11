@@ -9,11 +9,12 @@ namespace ContactsDBAPI.Models
 {
     public class Phone
     {
-        public Phone(string personID, string number, DateTime date)
+        public Phone(string personID, string number,string name, DateTime date)
         {
             PersonID = personID;
             Number = number;
             Date = date;
+            Name = name;
         }
 
         [BsonRepresentation(BsonType.ObjectId)]
@@ -21,6 +22,9 @@ namespace ContactsDBAPI.Models
 
         [BsonElement("PersonID")]
         public string PersonID { get; set; }
+
+        [BsonElement("Name")]
+        public string Name { get; set; }
 
         [BsonElement("Number")]
         public string Number { get; set; }

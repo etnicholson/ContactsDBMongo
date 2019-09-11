@@ -8,11 +8,13 @@ namespace ContactsDBAPI.Repositories
 {
     public interface IPhoneRepository
     {
-        Task<Phone> CreatePhone(string personID, string phone);
+        Task<Phone> CreatePhone(string personID, string phone, string name);
 
         Task<Phone> FindPhone(string phone);
 
         Task<List<Phone>> FindAllUserNumber(string id);
+
+        Task<List<Phone>> GetAllNumbers();
 
         Task DeletePhone(string phone);
 

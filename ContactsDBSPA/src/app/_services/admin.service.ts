@@ -28,7 +28,11 @@ export class AdminService {
 
     return this.http.request<boolean>('get', this.baseUrl + 'isadmin/', this.httpOptions).pipe(
       map(res =>  res));
-
     }
+
+   Csv() {
+      return this.http.request('get', this.baseUrl + 'csv/', this.httpOptions).pipe(
+        map(res =>  res));
+      }
 
 }

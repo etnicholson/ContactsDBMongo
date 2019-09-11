@@ -25,9 +25,9 @@ namespace ContactsDBAPI.Repositories
         }
 
 
-        public async Task<Phone> CreatePhone(string personID, string phone)
+        public async Task<Phone> CreatePhone(string personID, string phone, string name)
         {
-            var newPhone = new Phone(personID, phone, DateTime.Today);
+            var newPhone = new Phone(personID, phone,name, DateTime.Today);
             await _phones.InsertOneAsync(newPhone);
 
             return newPhone;
@@ -88,5 +88,11 @@ namespace ContactsDBAPI.Repositories
             return valid;
         }
 
+        public async Task<List<Phone>> GetAllNumbers()
+        {
+            var all = await _phones.Find(_ => true).ToListAsync();
+
+            return all;
+        }
     }
 }

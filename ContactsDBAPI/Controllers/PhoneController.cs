@@ -39,7 +39,7 @@ namespace ContactsDBAPI.Controllers
                 return BadRequest("Phone already on the database");
             }
 
-            var phoneToReturn = await _phone.CreatePhone(number.PersonID, number.Number);
+            var phoneToReturn = await _phone.CreatePhone(number.PersonID, number.Number,number.Name);
             var person = await _person.FindPerson(number.PersonID);
 
             var userEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email).Value;

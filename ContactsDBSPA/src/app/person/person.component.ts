@@ -93,7 +93,7 @@ export class PersonComponent implements OnInit {
 
 
   createNumber() {
-    const tempPerson = new CreatePhone(this.person.id, this.phone.value);
+    const tempPerson = new CreatePhone(this.person.id, this.person.name , this.phone.value);
     this.phoneService.CreatePhone(tempPerson).subscribe(
       (res: any) =>  {
         this.phone.setValue('');

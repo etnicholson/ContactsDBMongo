@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 
 namespace ContactsDBAPI.Dto
 {
-    public class CreatePhoneDto
+    public class CSVPhonesDto
     {
-        public string PersonID { get; set; }
-        public string Number { get; set; }
-
         public string Name { get; set; }
+        public string Phone { get; set; }
     }
 }

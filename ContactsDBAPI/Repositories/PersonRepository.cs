@@ -71,6 +71,13 @@ namespace ContactsDBAPI.Repositories
 
         }
 
+        public async Task<List<Person>> RetrieveAllPeople()
+        {
+            var all = await _persons.Find(_ => true).ToListAsync();
+
+            return all;
+        }
+
         public async Task UpdateNotes(PersonUpdateDto person)
         {
             var final = await FindPerson(person.Id);

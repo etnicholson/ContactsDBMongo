@@ -20,5 +20,7 @@ namespace ContactsDBAPI.Repositories
 
         Task<List<string>> RetreiveCities();
 
+        Task<List<Person>> RetrieveAllPeople();
+
     }
 }
