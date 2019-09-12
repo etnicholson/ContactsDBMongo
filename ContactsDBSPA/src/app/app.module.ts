@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import {MaterialModule} from './material.module';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -36,7 +37,8 @@ import { AdminComponent } from './admin/admin.component';
       MaterialModule,
       FormsModule,
       ReactiveFormsModule,
-      HttpClientModule
+      HttpClientModule,
+      NgxChartsModule
    ],
    providers: [],
    bootstrap: [

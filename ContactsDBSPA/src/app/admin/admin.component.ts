@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../_services/admin.service';
 import { Router } from '@angular/router';
 import { Angular5Csv } from 'angular5-csv/dist/Angular5-csv';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { LogService } from '../_services/log.service';
 
 
 @Component({
@@ -11,7 +13,40 @@ import { Angular5Csv } from 'angular5-csv/dist/Angular5-csv';
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private adminService: AdminService, private router: Router) { }
+  dates = [
+  ];
+
+
+  view: any[] = [700, 400];
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = false;
+  showXAxisLabel = true;
+  xAxisLabel = 'Day';
+  showYAxisLabel = true;
+  yAxisLabel = 'Logs';
+
+  colorScheme = {
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  };
+
+
+
+
+  constructor(private adminService: AdminService, private logService: LogService , private router: Router) { 
+    this.logService.GetLogsWeek().subscribe(
+      (res: any) =>  {
+
+        this.dates = res;
+
+
+      },  error => {
+        console.log(error);
+
+      });
+
+  }
 
 
   data = [
@@ -40,7 +75,6 @@ export class AdminComponent implements OnInit {
 
 
 
-
       },  error => {
         console.log(error);
         this.router.navigate(['/search/']);
@@ -48,6 +82,8 @@ export class AdminComponent implements OnInit {
       }
 
       );
+
+
   }
 
   getCSV() {
