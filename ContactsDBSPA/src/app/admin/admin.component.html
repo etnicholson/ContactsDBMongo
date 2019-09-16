@@ -20,3 +20,15 @@
   [yAxisLabel]="yAxisLabel"
   (select)="onSelect($event)">
 </ngx-charts-bar-vertical>
+
+<ngx-charts-pie-chart
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="mostActive"
+  [legend]="showLegend2"
+  [explodeSlices]="explodeSlices"
+  [labels]="showLabels"
+  [doughnut]="doughnut"
+  [gradient]="gradient"
+  (select)="onSelect($event)">
+</ngx-charts-pie-chart>

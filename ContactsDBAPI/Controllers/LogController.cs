@@ -35,11 +35,11 @@ namespace ContactsDBAPI.Controllers
         {
 
             var logs = await _log.RetriveLogs();
-            var today = DateTime.Now.Date; // This can be any date.
-            var day = (int)today.DayOfWeek; //Number of the day in week. (0 - Sunday, 1 - Monday... and so On)
-            //const int totalDaysOfWeek = 7; // Number of days in a week stays constant.
-            var current = today.AddDays(day - 6).Date;
+            var currentDay = DateTime.Now.DayOfWeek;
+            int daysTillCurrentDay = currentDay - DayOfWeek.Monday;
+            var current = DateTime.Now.AddDays(-daysTillCurrentDay);
             var result = new List<LogsWeekDto>();
+
             for (int i = 0; i < 7; i++)
             {
                 var logCount = logs.Where(p => p.Date.Date == current.Date).ToList();
@@ -48,6 +48,47 @@ namespace ContactsDBAPI.Controllers
                 current = current.AddDays(1);
 
 
+            }
+
+            return Ok(result);
+
+        }
+
+
+        [HttpGet("getmostactive")]
+        public async Task<ActionResult<List<LogsWeekDto>>> GetMostActive()
+        {
+
+            var logs = await _log.RetriveLogs();
+            var currentDay = DateTime.Now.DayOfWeek;
+            int daysTillCurrentDay = currentDay - DayOfWeek.Monday;
+            var current = DateTime.Now.AddDays(-daysTillCurrentDay);
+            var dic = new Dictionary<string, int>();
+            var result = new List<LogsWeekDto>();
+
+            for (int i = 0; i < 7; i++)
+            {
+                var logCount = logs.Where(p => p.Date.Date == current.Date).ToList();
+
+                foreach (var item in logCount)
+                {
+                    if (dic.ContainsKey(item.Owner)) dic[item.Owner]++;
+                    else dic.Add(item.Owner, 1);
+
+
+                }
+
+
+                current = current.AddDays(1);
+
+
+            }
+
+
+            foreach (var item in dic)
+            {
+                var temp = new LogsWeekDto(item.Key, item.Value);
+                result.Add(temp);
             }
 
             return Ok(result);

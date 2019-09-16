@@ -29,4 +29,9 @@ export class LogService {
       map(res =>  res));
     }
 
+    GetMostActive() {
+      return this.http.request('get', this.baseUrl + 'getmostactive/', this.httpOptions).pipe(
+        map(res =>  res));
+      }
+
 }

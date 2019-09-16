@@ -13,8 +13,8 @@ import { LogService } from '../_services/log.service';
 })
 export class AdminComponent implements OnInit {
 
-  dates = [
-  ];
+  dates = [];
+  mostActive = [];
 
 
   view: any[] = [700, 400];
@@ -22,10 +22,14 @@ export class AdminComponent implements OnInit {
   showYAxis = true;
   gradient = false;
   showLegend = false;
+  showLegend2 = true;
   showXAxisLabel = true;
   xAxisLabel = 'Day';
   showYAxisLabel = true;
   yAxisLabel = 'Logs';
+  showLabels = true;
+  explodeSlices = false;
+  doughnut = false;
 
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
@@ -45,6 +49,13 @@ export class AdminComponent implements OnInit {
         console.log(error);
 
       });
+
+    this.logService.GetMostActive().subscribe(
+        (res: any) =>  {
+          this.mostActive = res;
+        },  error => {
+          console.log(error);
+        });
 
   }
 
