@@ -7,6 +7,7 @@ using ContactsDBAPI.Models;
 using ContactsDBAPI.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ReflectionIT.Mvc.Paging;
 
 namespace ContactsDBAPI.Controllers
 {
@@ -23,12 +24,23 @@ namespace ContactsDBAPI.Controllers
             _log = log;
         }
 
-        [HttpGet("getlogs")]
-        public async Task<ActionResult<List<Log>>> GetLogs()
+        [HttpGet("getlogs/{page}")]
+        public async Task<ActionResult<IEnumerable<Log>>> GetLogs(int page)
         {
-            return Ok(await _log.RetriveLogs());
+            var l =  await _log.RetriveLogs();
+            var final = l.AsQueryable<Log>().OrderByDescending(p => p.Date);
+            var result =  PagingList.Create<Log>(final, 40, page);
+
+
+            if (result.Count == 0) return Ok("End of Logs");
+
+            return Ok(result);
 
         }
+
+
+
+
 
         [HttpGet("getlogsweek")]
         public async Task<ActionResult<List<LogsWeekDto>>> GetLogsWeek()
@@ -94,6 +106,8 @@ namespace ContactsDBAPI.Controllers
             return Ok(result);
 
         }
+
+
 
 
 

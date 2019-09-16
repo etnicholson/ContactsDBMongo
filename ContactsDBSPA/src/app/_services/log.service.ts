@@ -24,10 +24,16 @@ export class LogService {
     };
    }
 
+
    GetLogsWeek() {
     return this.http.request('get', this.baseUrl + 'getlogsweek/', this.httpOptions).pipe(
       map(res =>  res));
     }
+
+    GetLogs(page) {
+      return this.http.request('get', this.baseUrl + 'getlogs/' + page, this.httpOptions).pipe(
+        map(res =>  res));
+      }
 
     GetMostActive() {
       return this.http.request('get', this.baseUrl + 'getmostactive/', this.httpOptions).pipe(

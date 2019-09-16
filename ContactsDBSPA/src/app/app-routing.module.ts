@@ -6,6 +6,7 @@ import { SearchComponent } from './search/search.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { CreatepersonComponent } from './createperson/createperson.component';
 import { AdminComponent } from './admin/admin.component';
+import { ReadLogsComponent } from './admin/readLogs/readLogs.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -13,6 +14,8 @@ const routes: Routes = [
   {path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
   {path: 'search/:id', component: SearchComponent, canActivate: [AuthGuard] },
   {path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
+  {path: 'readlogs', component: ReadLogsComponent, canActivate: [AuthGuard] },
+
 
   {path: 'createperson', component: CreatepersonComponent, canActivate: [AuthGuard] },
 

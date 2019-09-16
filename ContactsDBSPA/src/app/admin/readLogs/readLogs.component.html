@@ -1,0 +1,28 @@
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Owner</th>
+      <th>Action</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Date</th>
+
+    </tr>
+  </thead>
+
+  <tr *ngFor="let log of logs">
+    <td>{{log.owner}}</td>
+    <td>{{log.action}}</td>
+    <td>{{log.email}}</td>
+    <td>{{log.phone}}</td>
+    <td>{{log.date | date}}</td>
+
+  </tr>
+
+
+</table>
+
+
+

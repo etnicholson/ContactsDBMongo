@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using ReflectionIT.Mvc.Paging;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -37,7 +38,7 @@ namespace ContactsDBAPI
             services.AddScoped<IEmailRepository, EmailRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<ILogRepository, LogRepository>();
-
+            services.AddPaging();
 
             services.AddSwaggerGen(c =>
             {
