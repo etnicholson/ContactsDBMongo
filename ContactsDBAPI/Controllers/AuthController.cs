@@ -73,7 +73,7 @@ namespace ContactsDBAPI.Controllers
             return StatusCode(201);
         }
 
-
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserForRegisterDto userForLoginDto)
         {

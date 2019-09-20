@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ContactsDBAPI.Dto;
 using ContactsDBAPI.Models;
 using ContactsDBAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReflectionIT.Mvc.Paging;
@@ -14,7 +15,7 @@ namespace ContactsDBAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //    [Authorize]
+    [Authorize]
     public class LogController : ControllerBase
     {
         private readonly ILogRepository _log;

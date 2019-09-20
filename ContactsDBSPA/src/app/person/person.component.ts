@@ -44,8 +44,8 @@ export class PersonComponent implements OnInit {
     this.personService.updatePerson(this.person).subscribe(
       (res: any) =>  {
 
-        this.router.navigate(['/search/' + this.person.id]);
 
+        this.alertify.success('Saved');
 
 
       },  error => {
