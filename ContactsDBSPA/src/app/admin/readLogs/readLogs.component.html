@@ -1,3 +1,28 @@
+<div class="columns">
+  <div class="column">
+    <input class="input" type="text"  [formControl]="phone" name="phone" placeholder="Phone">
+    <p *ngIf="phone.errors && phone.touched"> Phone must be 10 characters</p>    
+  </div>
+  <div class="column">
+    <div *ngIf="!phone.errors && phone.value !== ''">
+      <button class="button is-primary" (click)="searchByPhone()">Search</button>
+  </div>
+  </div>
+</div>
+
+<div class="columns">
+  <div class="column">
+    <input class="input" type="text"  [formControl]="email" name="email" placeholder="Email">  
+    <p *ngIf="email.errors && email.touched"> Email isn't valid</p>    
+  </div>
+  <div class="column">
+    <div *ngIf="!email.errors && email.value !== ''">
+      <button class="button is-primary" (click)="searchByEmail()">Search</button>
+  </div>
+  </div>
+</div>
+
+
 
 
 <table class="table">

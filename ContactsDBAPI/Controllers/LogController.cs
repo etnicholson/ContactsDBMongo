@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ContactsDBAPI.Dto;
 using ContactsDBAPI.Models;
@@ -29,7 +30,7 @@ namespace ContactsDBAPI.Controllers
         {
             var l =  await _log.RetriveLogs();
             var final = l.AsQueryable<Log>().OrderByDescending(p => p.Date);
-            var result =  PagingList.Create<Log>(final, 40, page);
+            var result =  PagingList.Create<Log>(final, 100, page);
 
 
             if (result.Count == 0) return Ok("End of Logs");
@@ -38,6 +39,25 @@ namespace ContactsDBAPI.Controllers
 
         }
 
+
+        [HttpGet("getlogsbyphone/{phone}")]
+        public async Task<ActionResult<IEnumerable<Log>>> getLogsByPhone(string phone)
+        {
+             var l = await _log.RetriveLogs();
+            phone =  Regex.Replace(phone, @"^(\+)|\D", "$1");
+            var final = l.AsQueryable<Log>().Where(p=> p.Phone == phone).OrderByDescending(p => p.Date);
+            return Ok(final);
+
+        }
+
+        [HttpGet("getlogsbyemail/{email}")]
+        public async Task<ActionResult<IEnumerable<Log>>> getLogsByEmail(string email)
+        {
+            var l = await _log.RetriveLogs();
+            var final = l.AsQueryable<Log>().Where(p => p.Email == email).OrderByDescending(p => p.Date);
+            return Ok(final);
+
+        }
 
 
 

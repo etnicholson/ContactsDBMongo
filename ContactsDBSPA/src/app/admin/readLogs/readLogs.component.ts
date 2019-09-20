@@ -3,6 +3,7 @@ import { AdminService } from 'src/app/_services/admin.service';
 import { LogService } from 'src/app/_services/log.service';
 import { Route, Router } from '@angular/router';
 import { LogDto } from 'src/app/_models/LogDto';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-readlogs',
@@ -12,6 +13,9 @@ import { LogDto } from 'src/app/_models/LogDto';
 export class ReadLogsComponent implements OnInit {
 
   logs: LogDto[] = [];
+  phone = new FormControl('', Validators.minLength(10));
+  email = new FormControl('', Validators.email);
+
 
   constructor(private adminService: AdminService, private logService: LogService, private router: Router) { }
 
@@ -50,6 +54,26 @@ export class ReadLogsComponent implements OnInit {
 
 
   }
+
+  searchByPhone() {
+    this.logService.GetLogsByPhone(this.phone.value).subscribe(
+      (res: any) =>  {
+        this.logs = res;
+
+      },  error => {
+        console.log(error);
+
+      });
+  }
+
+  searchByEmail() {
+    this.logService.GetLogsByEmail(this.email.value).subscribe(
+      (res: any) =>  {
+        this.logs = res;
+      },  error => {
+        console.log(error);
+      });
+    }
 
 
 

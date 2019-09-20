@@ -35,6 +35,16 @@ export class LogService {
         map(res =>  res));
       }
 
+    GetLogsByPhone(phone) {
+        return this.http.request('get', this.baseUrl + 'getlogsbyphone/' + phone, this.httpOptions).pipe(
+          map(res =>  res));
+        }
+
+    GetLogsByEmail(email) {
+          return this.http.request('get', this.baseUrl + 'getlogsbyemail/' + email, this.httpOptions).pipe(
+            map(res =>  res));
+    }
+
     GetMostActive() {
       return this.http.request('get', this.baseUrl + 'getmostactive/', this.httpOptions).pipe(
         map(res =>  res));
