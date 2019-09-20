@@ -1,0 +1,48 @@
+<form (ngSubmit)="register()" #a="ngForm">
+
+  <div class="main-container">
+
+
+    <div class="columns is-mobile is-centered">
+      <div class="column is-half">
+        <mat-form-field>
+          <input matInput placeholder="Email" class="form-control" ngModel email required #email="ngModel" name="email">
+        </mat-form-field>
+        <span *ngIf="!email.valid && email.touched">Please enter a valid email.</span>
+      </div>
+    </div>
+
+
+
+    <div class="columns is-mobile is-centered">
+      <div class="column is-half">
+        <mat-form-field>
+          <input matInput placeholder="Enter your password" class="form-control" ngModel name="password"
+            [type]="hide ? 'password' : 'text'">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="columns is-mobile is-centered">
+      <div class="column is-half">
+        <button type="submit" class="button is-primary" [disabled]="!a.valid" id="loginButton">Register User</button>
+
+      </div>
+      
+    </div>
+    <div class="columns is-mobile is-centered">
+        <div class="column is-half">
+          <span>  {{error}}</span>
+        </div>
+        
+      </div>
+
+
+
+
+  </div>
+
+
+
+</form>

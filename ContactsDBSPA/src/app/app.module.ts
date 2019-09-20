@@ -18,6 +18,7 @@ import { PersonComponent } from './person/person.component';
 import { CreatepersonComponent } from './createperson/createperson.component';
 import { AdminComponent } from './admin/admin.component';
 import { ReadLogsComponent } from './admin/readLogs/readLogs.component';
+import { UsersComponent } from './admin/users/users.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ReadLogsComponent } from './admin/readLogs/readLogs.component';
       PersonComponent,
       CreatepersonComponent,
       AdminComponent,
-      ReadLogsComponent
+      ReadLogsComponent,
+      UsersComponent
    ],
    imports: [
       BrowserModule,

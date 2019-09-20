@@ -47,6 +47,21 @@ namespace ContactsDBAPI.Controllers
             return StatusCode(201);
         }
 
+        [HttpPost("delete")]
+        public async Task<IActionResult> Delete([FromBody] string email)
+        {
+            email = email.ToLower();
+            var userOnFile = await _repo.UserExists(email);
+            if (!userOnFile) return BadRequest("User not on the database");
+
+
+            await _repo.DeleteUser(email);
+
+
+            return StatusCode(201);
+        }
+
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserForRegisterDto userForLoginDto)
         {

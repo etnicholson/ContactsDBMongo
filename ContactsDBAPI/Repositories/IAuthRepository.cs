@@ -9,6 +9,9 @@ namespace ContactsDBAPI.Repositories
     public interface IAuthRepository
     {
         Task<User> Register(string email, string password);
+
+        Task DeleteUser(string email);
+
         Task<User> Login (string email, string password);
         Task<bool> UserExists(string email);
     }

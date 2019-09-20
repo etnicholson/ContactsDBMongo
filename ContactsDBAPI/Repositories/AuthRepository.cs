@@ -53,6 +53,11 @@ namespace ContactsDBAPI.Repositories
             return user;
         }
 
+        public async Task DeleteUser(string email)
+        {
+            await _users.DeleteOneAsync(email);
+        }
+
         public async Task<bool> UserExists(string email)
         {
             var user = await _users.Find(x => x.Email == email).FirstOrDefaultAsync();
@@ -86,6 +91,7 @@ namespace ContactsDBAPI.Repositories
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
+
 
     }
 }
