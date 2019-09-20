@@ -15,7 +15,7 @@ export class ReadLogsComponent implements OnInit {
   logs: LogDto[] = [];
   phone = new FormControl('', Validators.minLength(10));
   email = new FormControl('', Validators.email);
-
+  currentPage = 1;
 
   constructor(private adminService: AdminService, private logService: LogService, private router: Router) { }
 
@@ -25,7 +25,7 @@ export class ReadLogsComponent implements OnInit {
     this.adminService.IsAdmin().subscribe(
       (res: any) =>  {
 
-        console.log(res);
+
         if (res === false) {
           this.router.navigate(['/search/']);
         }
@@ -41,11 +41,10 @@ export class ReadLogsComponent implements OnInit {
       );
 
 
-    this.logService.GetLogs(1).subscribe(
+    this.logService.GetLogs(this.currentPage).subscribe(
         (res: any) =>  {
-          console.log(res);
           this.logs = res;
-          console.log(this.logs);
+
 
         },  error => {
           console.log(error);
@@ -73,6 +72,42 @@ export class ReadLogsComponent implements OnInit {
       },  error => {
         console.log(error);
       });
+    }
+
+
+    next() {
+      this.currentPage++;
+      console.log(this.currentPage);
+      this.logService.GetLogs(this.currentPage).subscribe(
+        (res: any) =>  {
+
+          if(res === 'End of Logs') {
+            this.currentPage--;
+          }
+          else{
+            this.logs = res;
+          }
+
+        },  error => {
+          console.log(error);
+
+        });
+
+    }
+
+    previous() {
+      this.currentPage--;
+      console.log(this.currentPage);
+      this.logService.GetLogs(this.currentPage).subscribe(
+        (res: any) =>  {
+          this.logs = res;
+
+
+        },  error => {
+          console.log(error);
+
+        });
+
     }
 
 

@@ -51,3 +51,22 @@
 
 
 
+
+<div class="columns">
+    <div class="column">
+
+        <div *ngIf="currentPage === 1">
+            <a class="button is-light">Previous</a>
+        </div>
+        <div *ngIf="currentPage > 1 ">
+            <a class="button is-primary" (click)="previous()">Previous</a>
+        </div>
+
+
+    </div>
+    <div class="column">
+        <a class="button is-primary" (click)="next()">Next</a>
+
+    </div>
+  </div>
+

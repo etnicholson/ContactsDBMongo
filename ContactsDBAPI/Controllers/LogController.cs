@@ -30,7 +30,7 @@ namespace ContactsDBAPI.Controllers
         {
             var l =  await _log.RetriveLogs();
             var final = l.AsQueryable<Log>().OrderByDescending(p => p.Date);
-            var result =  PagingList.Create<Log>(final, 100, page);
+            var result =  PagingList.Create<Log>(final, 20, page);
 
 
             if (result.Count == 0) return Ok("End of Logs");
