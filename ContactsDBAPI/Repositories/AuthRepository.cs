@@ -55,7 +55,8 @@ namespace ContactsDBAPI.Repositories
 
         public async Task DeleteUser(string email)
         {
-            await _users.DeleteOneAsync(email);
+
+            await _users.DeleteOneAsync<User>(p=> p.Email == email);
         }
 
         public async Task<bool> UserExists(string email)
@@ -92,6 +93,19 @@ namespace ContactsDBAPI.Repositories
             }
         }
 
+        public async Task<List<string>> RetriveAllUsers()
+        {
+            var users = await _users.Find(_ => true).ToListAsync();
+            var l = new List<string>();
 
+            foreach (var item in users)
+            {
+                l.Add(item.Email);
+            }
+
+            l.Remove("admin@admin.com");
+            
+            return l;
+        }
     }
 }

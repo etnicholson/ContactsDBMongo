@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -15,8 +15,17 @@ export class AuthService {
   jwtHelper = new JwtHelperService();
   decodedToken: any;
   currentUser: User;
+  httpOptions: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      })
+    };
+  }
 
 
 
@@ -26,13 +35,11 @@ export class AuthService {
         const user = response;
         if (user) {
 
-          //localStorage.setItem('token', response.access_token);
 
           console.log(user); 
           localStorage.setItem('token', user.token);
           localStorage.setItem('user', user.email);
-          //this.decodedToken = this.jwtHelper.decodeToken(user.token);
-          //console.log(this.decodedToken);
+
         }
       })
     );
@@ -41,14 +48,19 @@ export class AuthService {
 
 
   register(user: UserLogin) {
-    return this.http.post(this.baseUrl + 'Auth/register', user);
+    return this.http.post(this.baseUrl + 'Auth/register', user , this.httpOptions);
   }
 
- 
+  delete(email) {
+    return this.http.request('post', this.baseUrl + 'Auth/delete/' + email, this.httpOptions);
+  }
+  retriveUsers() {
+    return this.http.get(this.baseUrl + 'Auth/retriveallusers', this.httpOptions);
+  }
+
   loggedIn() {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
   }
-
 
 }

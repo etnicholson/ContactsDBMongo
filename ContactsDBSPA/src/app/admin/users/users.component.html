@@ -1,4 +1,21 @@
+<div *ngFor="let item of users" style="margin-top: 10px;">
+    <span class="tag is-primary is-medium">
+        {{item}}
+    </span>
+    <span (click)="toggleModal(item)" class="icon has-text-danger">
+      <i class="fas fa-ban"></i>
+    </span>
+
+
+  </div>
+
+
+
+
+
 <form (ngSubmit)="register()" #a="ngForm">
+
+
 
   <div class="main-container">
 
@@ -46,3 +63,19 @@
 
 
 </form>
+
+
+
+<div class="modal" [ngClass]="{ 'is-active' : isModalActive }">
+    <div class="modal-background" (click)="toggleModal()"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title" >Are you sure want to  delete {{whatToDelete}}</p>
+        <button class="delete" aria-label="close" (click)="toggleModal()"></button>
+      </header>
+      <footer class="modal-card-foot">
+        <button class="button is-danger" (click)="delete()">DELETE</button>
+        <button class="button" (click)="toggleModal()">Cancel</button>
+      </footer>
+    </div>
+  </div>

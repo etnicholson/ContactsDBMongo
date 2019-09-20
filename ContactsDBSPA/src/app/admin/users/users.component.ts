@@ -16,8 +16,12 @@ export class UsersComponent implements OnInit {
   hide: boolean;
   user: UserLogin;
   error: string;
+  users = [];
+  isModalActive = false;
+  whatToDelete = '';
 
-  constructor(private adminService: AdminService,  private router: Router,private authService: AuthService) { }
+
+  constructor(private adminService: AdminService,  private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.adminService.IsAdmin().subscribe(
@@ -37,12 +41,23 @@ export class UsersComponent implements OnInit {
       }
 
       );
+
+    this.authService.retriveUsers().subscribe((res: any) => {
+
+      this.users = res;
+      }, error => {
+        console.log(error);
+        this.error = error;
+      }, () => {
+  
+      });
+
   }
 
   register() {
     this.user = Object.assign({}, this.loginForm.value);
     this.authService.register(this.user).subscribe(next => {
-
+      this.users.push(this.user.email);
       this.loginForm.form.reset();
     }, error => {
       console.log(error);
@@ -50,6 +65,31 @@ export class UsersComponent implements OnInit {
     }, () => {
 
     });
+
+  }
+
+
+  toggleModal(toDelete: string) {
+
+    this.whatToDelete = toDelete;
+
+    this.isModalActive = !this.isModalActive;
+  }
+
+  delete() {
+    this.isModalActive = !this.isModalActive;
+
+
+
+    this.authService.delete(this.whatToDelete).subscribe((res: any) => {
+     console.log(this.whatToDelete);
+      this.users = this.users.filter(i => i !== this.whatToDelete);
+      }, error => {
+        console.log(error);
+        this.error = error;
+      }, () => {
+  
+      });
 
   }
 

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using ContactsDBAPI.Dto;
 using ContactsDBAPI.Models;
 using ContactsDBAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +18,7 @@ namespace ContactsDBAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AuthController : ControllerBase
     {
 
@@ -29,6 +31,16 @@ namespace ContactsDBAPI.Controllers
             _config = config;
             _repo = repo;
         }
+
+
+        [HttpGet("retriveallusers")]
+        public async Task<IActionResult> RetriveAllUsers()
+        {
+            var users = await _repo.RetriveAllUsers();
+
+            return Ok(users);
+        }
+
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserForRegisterDto userForRegisterDto)
@@ -47,8 +59,8 @@ namespace ContactsDBAPI.Controllers
             return StatusCode(201);
         }
 
-        [HttpPost("delete")]
-        public async Task<IActionResult> Delete([FromBody] string email)
+        [HttpPost("delete/{email}")]
+        public async Task<IActionResult> Delete(string email)
         {
             email = email.ToLower();
             var userOnFile = await _repo.UserExists(email);
